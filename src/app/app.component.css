@@ -1,0 +1,29 @@
+
+.item:hover{
+    background: rgba(214, 212, 212, 0.3) !important;
+}
+
+.no-top{
+    border-top: 0 !important;
+}
+
+.normal-top{
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.item-group:hover{
+    border:solid 1px#cce2ff;
+}
+
+.item-group{
+    border:solid 1px rgba(8, 8, 8, 0.1);
+}
+
+.item-border{
+    border-top: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.item-border:hover{
+    border: 1px solid #cce2ff;
+    cursor: pointer !important;
+}

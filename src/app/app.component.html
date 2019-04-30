@@ -1,20 +1,77 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<h3>Assignment 6</h3>
+<form #f='ngForm' (ngSubmit)='submit(f)' (click)="clickBlank()">
+  <div class="form-group">
+    <label for="courseName">Course Name</label>
+      <input 
+        ngModel name="courseName"
+        #courseName="ngModel"
+        required
+        minlength="3"
+        id="courseName"
+        class="form-control"
+        type="text"
+        (click)="showCourseName(courseName)"
+      >
+      <div>
+        <div 
+          class="alert alert-danger"
+          *ngIf="!courseName.valid && courseName.touched">
+          The Course Name is required
+        </div>
+        <div 
+          class="alert alert-danger"
+          *ngIf="!courseName.valid && courseName.errors.minlength">
+          The Course Name length should be at least 3
+        </div>
+      </div>
+  </div>
+  <div class="form-group">
+    <div>
+      <div class="ui fluid icon input">
+        <input 
+          style="cursor: pointer"
+          type="text" 
+          placeholder="Select course type"
+          readonly
+          required
+          [(ngModel)] = "selectedType"
+          (click)="toggleSelect($event,selectType)"
+          ngModel name="selectType"
+          #selectType="ngModel"
+        >
+        <i class="dropdown icon"></i>
+      </div>
 
+      <div class="ui items item-group" 
+        *ngIf="inputSelected"
+        style="border-radius: 0 0 5px 5px; margin-top: 2px !important"
+      >
+        <div 
+          class="item item-border"
+          *ngFor="let ct of courseTypes;index as i;"
+          (click)="clickItem(ct?.name)"
+          style="margin-top: 0 !important;margin-bottom: 0 !important;height: 35px !important;"
+          ><p style="margin-left: 5px; margin-top: 5px">{{i}} - {{ct?.name}}</p>
+        </div>
+      </div> 
+      
+      <div class="alert alert-danger" *ngIf="selectType.touched && !selectType.valid">
+        Course type is required
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="tickRefond">
+      <input 
+        id="tickRefond"
+        type="checkbox"
+        ngModel name="tickRefond"
+      >
+      30-day money back gurantee
+    </label>
+  </div>
+  <p>{{f.value|json}}</p>
+  <button class='btn btn-primary' [disabled]="!f.valid">
+    Submit
+  </button>
+</form>
